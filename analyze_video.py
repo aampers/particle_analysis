@@ -1,7 +1,8 @@
 import cv2
+import json
 import numpy as np
 
-def analyze_video(video_path, frame_step):
+def analyze_video(video_path, frame_step=5):
     """
     Analyze a video to extract particle characteristics and motion patterns.
     
@@ -40,3 +41,16 @@ def analyze_video(video_path, frame_step):
     cap.release()
     return particle_data
 
+if __name__ == "__main__":
+    # Prompt the user to input the video file path
+    video_path = input("Enter the path to your video file: ").strip()
+
+    # Check if the input is valid
+    if not video_path:
+        print("Error: No video file path provided.")
+    else:
+        output_path = "particle_analysis.json"
+        result = analyze_video(video_path, 1)
+        with open(output_path, "w") as f:
+            json.dump(result, f)
+        print(f"Analysis complete. Results saved to '{output_path}'.")
